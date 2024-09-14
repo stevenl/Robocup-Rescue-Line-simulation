@@ -38,3 +38,8 @@ do customize your robot yuo need to pass the respective parameter to the robot c
 ## Explanation of the line follower software
 
 if you want more details on how our original program work, you can find a full explanation [here](https://github.com/lucaSartore/Robocup-Rescue-Line-simulation/blob/main/line_follower_program.pdf)
+
+## Q&A
+
+I will group here the links to the questions that I have received over the years, as I think they can be a useful resource.
+ - [Q1](https://github.com/lucaSartore/Robocup-Rescue-Line-simulation/commit/b3b0412ee70901355aadf3aa3821dead05e23a04)
