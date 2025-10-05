@@ -4,6 +4,7 @@ import cv2
 import time
 from threading import Thread
 import numpy as np
+import pathlib
 import sys
 
 # constant for the "shape" of the image
@@ -55,6 +56,8 @@ DEFAULT_SIMULATION_TIME_STEP: float = 0.01
 # the resolution of the image view by the robot
 DEFAULT_OUTPUT_RESOLUTION_X: int = 64
 DEFAULT_OUTPUT_RESOLUTION_Y: int = 64
+
+IMAGES_DIR = pathlib.Path(__file__).parent / ".." / "images"
 
 
 # sum to an x value a vector and return the new x vaue
@@ -459,12 +462,12 @@ class Robot:
         image = np.zeros(shape=[dimension, dimension, 4], dtype=np.uint8)
 
         # load the body
-        body = cv2.imread("../images/body.png", cv2.IMREAD_UNCHANGED)
+        body = cv2.imread(f"{IMAGES_DIR}/body.png", cv2.IMREAD_UNCHANGED)
         body_dim = self.__cm_to_pixel(self.__robot_wight * 0.7)
         body = cv2.resize(body, (body_dim, body_dim))
 
         # load the track
-        track = cv2.imread("../images/track.png", cv2.IMREAD_UNCHANGED)
+        track = cv2.imread(f"{IMAGES_DIR}/track.png", cv2.IMREAD_UNCHANGED)
         track_y = int(body_dim * 1.3)
         track_x = self.__cm_to_pixel(3)
         track = cv2.resize(track, (track_x, track_y))
@@ -552,7 +555,7 @@ def test():
 
     r.__del__()
 
-    # track = cv2.imread("../images/track.png", cv2.IMREAD_UNCHANGED)
+    # track = cv2.imread(f"{IMAGES_DIR}/track.png", cv2.IMREAD_UNCHANGED)
     #
     # print(np.shape(track))
     #
