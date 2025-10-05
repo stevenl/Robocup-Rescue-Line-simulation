@@ -1,7 +1,8 @@
 import sys
 import numpy as np
 import cv2
-sys.path.append('../src')
+
+sys.path.append("../src")
 from robot_simulation import Robot
 
 
@@ -10,9 +11,9 @@ def main():
     # robor
 
     # windows
-    robot = Robot('../maps/map_1.png')
+    # robot = Robot('../maps/map_1.png')
     # linux
-    robot = Robot('../maps/map_1.png', top_view_enable=False)
+    robot = Robot("../maps/map_1.png", top_view_enable=False)
 
     while True:
         # get the image
@@ -25,33 +26,30 @@ def main():
         ret, gray = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
 
         # count the black pixels to the right and to the left
-        black_pixels_dx = np.count_nonzero(255-gray[:, 32:])
+        black_pixels_dx = np.count_nonzero(255 - gray[:, 32:])
         black_pixels_sx = np.count_nonzero(255 - gray[:, :32])
 
-        delta = black_pixels_dx-black_pixels_sx
+        delta = black_pixels_dx - black_pixels_sx
 
         print(delta)
 
-        v_dx = 100 - delta/10,
-        v_sx = 100 + delta/10
+        v_dx = (100 - delta / 10,)
+        v_sx = 100 + delta / 10
 
         v_dx = np.clip(v_dx, -255, 255)
         v_sx = np.clip(v_sx, -255, 255)
 
-        robot.set_motors_speeds(
-            v_dx,
-            v_sx
-        )
+        robot.set_motors_speeds(v_dx, v_sx)
 
         cv2.imshow("view", cv2.resize(gray, (500, 500)))
         cv2.waitKey(1)
 
         # only in linux
-        #robot.update_top_view()
+        # robot.update_top_view()
 
     # delete the robot, to stop the treads
     robot.__del__()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
